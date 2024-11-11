@@ -9,9 +9,10 @@
 class Deck : BaseCardData 
 {
   public:
-    Deck();                         
+    Deck();
+    Card GETTopMainDeck();                         
   protected:
-    Card GETTopMainDeck();
+    //Card GETTopMainDeck();
     void Shuffle();
 };
 

@@ -6,5 +6,6 @@ using std::string;
 
 Game::Game()
 {
-  std::cout << this->GameDealer.GETDealerName();
+  this->GameDealer.SETPointers(&this->GamePlayer, &this->GameDealer);
+  this->GamePlayer.SETp2Dealer(&this->GameDealer);
 }
