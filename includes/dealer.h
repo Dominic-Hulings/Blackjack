@@ -14,6 +14,8 @@ class Dealer : CT
     Dealer();
   protected:
     class DealerDeck : Deck{};
+  private:
+    std::vector<Card> dealerHand;
 };
 
 #endif

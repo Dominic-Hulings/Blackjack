@@ -12,6 +12,7 @@ public:
   Player();
 private:
   std::vector<Card> playerHand;
+  int playerStack;
 };
 
 #endif

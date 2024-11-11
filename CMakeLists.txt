@@ -10,3 +10,5 @@ include_directories(includes)
 project(blackjack VERSION 1.0)
 
 add_executable(blackjack.o ${SRC_FILES} ${INCLUDE_FILES})
+target_link_libraries(blackjack.o PUBLIC -L/usr/local/lib -lftxui-component -lftxui-dom -lftxui-screen)
+target_compile_options(blackjack.o PUBLIC -I/usr/local/include)
