@@ -11,9 +11,12 @@ class Player : BasePlayerData
 public:
   Player();
   std::string GETPlayerName();
+  std::vector<Card> GETPlayerHand();
+  int GETPlayerHandValue();
 private:
   std::vector<Card> playerHand;
   int playerStack;
+  int playerHandValue;
 };
 
 #endif
