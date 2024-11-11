@@ -6,14 +6,13 @@
 #include "base.h"  // Includes base card data
 #include "global.h"
 
-class Deck : BaseCardData  //* Inherits protected list of suits and a protected list of values /
-{                          //* along with a public stack of string pairs called MainDeck
-public:
-  Deck();
-  Card GETTopMainDeck();
-
-protected:
-  void Shuffle();  //* Constructor and Shuffle defined in deck.cpp
+class Deck : BaseCardData 
+{
+  public:
+    Deck();                         
+  protected:
+    Card GETTopMainDeck();
+    void Shuffle();
 };
 
 #endif

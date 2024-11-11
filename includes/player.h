@@ -1,13 +1,17 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+//#include <string>
+#include <vector>
+
 #include "global.h"
-#include <string>
 
 class Player : CT
 {
 public:
   Player();
+private:
+  std::vector<Card> playerHand;
 };
 
 #endif

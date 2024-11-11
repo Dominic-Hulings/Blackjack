@@ -5,14 +5,15 @@
 #include <vector>
 // #include <string>
 
-#include "global.h"
+#include "deck.h"
 #include "player.h"
 
 class Dealer : CT
 {
-public:
-  Dealer();
-  
+  public:
+    Dealer();
+  protected:
+    class DealerDeck : Deck{};
 };
 
 #endif

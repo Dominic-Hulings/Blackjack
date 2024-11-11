@@ -7,10 +7,12 @@
 #include "dealer.h"
 #include "player.h"
 
-class Table
+class Game : CT
 {
-public:
-  Table();
+  public:
+    Game();
+  private:
+    class GameDealer : Dealer{};
 };
 
 #endif
