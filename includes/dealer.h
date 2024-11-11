@@ -1,28 +1,18 @@
 #ifndef DEALER_H
 #define DEALER_H
 
-#include <string>
+#include <stack>
+#include <vector>
+// #include <string>
 
-class Dealer
+#include "global.h"
+#include "player.h"
+
+class Dealer : CT
 {
-  public:
-    Dealer();
-    std::string GETButtonPositions();
-    std::string* ptest;
-    void preHandCheck();
-    class Hand
-    {
-      public:
-        Hand();
-        std::string* pHandObj;
-        void CheckResult(int checkResult);
-      private:
-        void CurrentHand();
-    };
-  private:
-    class DealerDeck;
-    void SETButtonPositions(int dPos, int lbPos, int bbPos);
-    int buttonPositions[3];
+public:
+  Dealer();
+  
 };
 
 #endif
