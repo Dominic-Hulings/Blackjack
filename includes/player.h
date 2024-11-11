@@ -4,12 +4,13 @@
 //#include <string>
 #include <vector>
 
-#include "global.h"
+#include "base.h"
 
-class Player : CT
+class Player : BasePlayerData
 {
 public:
   Player();
+  std::string GETPlayerName();
 private:
   std::vector<Card> playerHand;
   int playerStack;

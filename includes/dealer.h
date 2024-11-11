@@ -12,10 +12,12 @@ class Dealer : CT
 {
   public:
     Dealer();
+    std::string GETDealerName();
   protected:
     class DealerDeck : Deck{};
   private:
     std::vector<Card> dealerHand;
+    std::string dealerName;
 };
 
 #endif
