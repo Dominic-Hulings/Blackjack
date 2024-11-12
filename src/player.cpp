@@ -34,18 +34,9 @@ void Player::SETp2Dealer(void* inp2Dealer)
 //* END OF SET METHODS \\ -----------------------------------
 //* TAKE METHODS \\ -----------------------------------------
 
-int Player::TAKECard(Card cardGiven, void* checkp2Dealer)
+void Player::TAKECard(Card cardGiven, bool isFaceDown)
 {
-  if (checkp2Dealer == &this->p2Dealer)
-  {
     this->playerHand.push_back(cardGiven);
-    return 1;
-  }
-
-  else
-  {
-    return 0;
-  }
 }
 
 //* END OF TAKE METHODS \\ ----------------------------------

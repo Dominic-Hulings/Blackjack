@@ -6,8 +6,6 @@
 
 #include "global.h"
 
-// Just a class for Deck to inherit from containing base data
-
 class BaseCardData : protected CT
 {
   protected:

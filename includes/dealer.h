@@ -14,9 +14,9 @@ public:
   std::string GETDealerName();
   std::pair<std::vector<Card>, int> GETDealerHand();
   void SETp2Player(Player* p2Player);
+  void TAKECard( Card cardGiven, bool isFaceDown );
   Deck* GETDealerDeck();
-protected:
-  //* Inherits from logic.h
+  Player* GETpPlayer();
 private:
   std::string dealerName;
   Player* pPlayer;

@@ -26,8 +26,18 @@ pair<vector<Card>, int> Dealer::GETDealerHand()
   return {this->dealerHand, this->dealerHandValue};
 }
 
+Player* Dealer::GETpPlayer()
+{
+  return this->pPlayer;
+}
+
 void Dealer::SETp2Player(Player* p2Player)
 {
   this->pPlayer = p2Player;
+}
+
+void Dealer::TAKECard(Card cardGiven, bool isFaceDown)
+{
+  this->dealerHand.push_back(cardGiven);
 }
 
