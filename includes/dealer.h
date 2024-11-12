@@ -18,6 +18,7 @@ public:
   Deck* GETDealerDeck();
   Player* GETpPlayer();
   int startHand();
+  int EvalHandValue(std::vector<Card> hand, bool secAceCount);
 private:
   //int startHand();
   std::string dealerName;

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <algorithm>
 #include <vector>
 
 #include "dealer.h"
@@ -41,6 +42,37 @@ void Dealer::TAKECard(Card cardGiven, bool isFaceDown)
   this->dealerHand.push_back(cardGiven);
 }
 
+int Dealer::EvalHandValue(vector<Card> hand, bool secAceCount = false)
+{
+  int totalHandValue = 0;
+  for (Card card : hand)
+  {
+    auto it = find(Values.begin(), Values.end(), card.first);
+
+    if (it == Values.end())
+    {
+      cout << "Card not found.\n";
+    }
+
+    if (it - Values.begin() + 1 > 1 && it - Values.begin() + 1 < 11)
+    {
+      totalHandValue += it - Values.begin() + 1;
+    }
+
+    else if (it - Values.begin() + 1 >= 11)
+    {
+      totalHandValue += 10;
+    }
+
+    else
+    {
+      (secAceCount) ? totalHandValue += 1 : totalHandValue += 11;
+    }
+  }
+
+  return totalHandValue;
+}
+
 int Dealer::startHand()
 {
   //* BETTING ------------------------------------------------------
@@ -65,10 +97,25 @@ int Dealer::startHand()
   
 
   //* END OF BETTING -----------------------------------------------
+  //* INITIAL DEAL -------------------------------------------------
+
   this->pPlayer->TAKECard(this->DealerDeck.GETTopMainDeck(), false);
   this->TAKECard(this->DealerDeck.GETTopMainDeck(), false);
   this->pPlayer->TAKECard(this->DealerDeck.GETTopMainDeck(), false);
   this->TAKECard(this->DealerDeck.GETTopMainDeck(), true);
+
+  //* END OF INITIAL DEAL ------------------------------------------
+  //* PLAYER TURN --------------------------------------------------
+
+  cout << "Players hand:\n";
+  for (Card card : this->pPlayer->GETPlayerHand())
+  {
+    cout << card.first << " of " << card.second << "\n";
+  }
+
+  cout << "Value: " << EvalHandValue(this->pPlayer->GETPlayerHand()) << "\n";
+
+  //* END OF PLAYER TURN -------------------------------------------
 
 
 

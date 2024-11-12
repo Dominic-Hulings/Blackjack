@@ -1,4 +1,5 @@
 //#include <iostream>
+//#include <algorithm>
 
 #include "player.h"
 
@@ -19,9 +20,9 @@ string Player::GETPlayerName()
   return this->playerName;
 }
 
-pair<vector<Card>, int> Player::GETPlayerHand()
+vector<Card> Player::GETPlayerHand()
 {
-  return {this->playerHand, this->playerHandValue};
+  return this->playerHand;
 }
 
 int Player::GETPlayerStack()
@@ -42,6 +43,8 @@ void Player::SETp2Dealer(void* inp2Dealer)
 void Player::TAKECard(Card cardGiven, bool isFaceDown)
 {
     this->playerHand.push_back(cardGiven);
+
+    
 }
 
 //* END OF TAKE METHODS \\ ----------------------------------
