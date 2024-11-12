@@ -17,7 +17,9 @@ public:
   void TAKECard( Card cardGiven, bool isFaceDown );
   Deck* GETDealerDeck();
   Player* GETpPlayer();
+  int startHand();
 private:
+  //int startHand();
   std::string dealerName;
   Player* pPlayer;
   Deck DealerDeck;

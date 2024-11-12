@@ -24,6 +24,11 @@ pair<vector<Card>, int> Player::GETPlayerHand()
   return {this->playerHand, this->playerHandValue};
 }
 
+int Player::GETPlayerStack()
+{
+  return this->playerStack;
+}
+
 //* END OF GET METHODS \\ -----------------------------------
 //* SET METHODS \\ ------------------------------------------
 

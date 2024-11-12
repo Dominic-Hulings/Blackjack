@@ -12,6 +12,7 @@ public:
   Player();
   std::string GETPlayerName();
   std::pair<std::vector<Card>, int> GETPlayerHand();
+  int GETPlayerStack();
   void SETp2Dealer( void* inp2Dealer );
   void TAKECard( Card cardGiven, bool isFaceDown );
 
