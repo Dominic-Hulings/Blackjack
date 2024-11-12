@@ -9,18 +9,20 @@
 
 class Dealer : CT
 {
-  public:
-    Dealer();
-    std::string GETDealerName();
-    std::pair<std::vector<Card>, int> GETDealerHand();
-    void SETp2Player(Player* p2Player);
-  protected:
-  private:
-    Player* pPlayer;
-    Deck DealerDeck;
-    std::vector<Card> dealerHand;
-    std::string dealerName;
-    int dealerHandValue;
+public:
+  Dealer();
+  std::string GETDealerName();
+  std::pair<std::vector<Card>, int> GETDealerHand();
+  void SETp2Player(Player* p2Player);
+  Deck* GETDealerDeck();
+protected:
+  //* Inherits from logic.h
+private:
+  std::string dealerName;
+  Player* pPlayer;
+  Deck DealerDeck;
+  std::vector<Card> dealerHand;
+  int dealerHandValue;
 };
 
 #endif

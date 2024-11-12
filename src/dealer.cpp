@@ -16,6 +16,11 @@ string Dealer::GETDealerName()
   return this->dealerName;
 }
 
+Deck* Dealer::GETDealerDeck()
+{
+  return &this->DealerDeck;
+}
+
 pair<vector<Card>, int> Dealer::GETDealerHand()
 {
   return {this->dealerHand, this->dealerHandValue};
