@@ -12,15 +12,15 @@ class Dealer : CT
   public:
     Dealer();
     std::string GETDealerName();
-    void* GETpDealer();
-    void SETPointers(Player* p2Player, Dealer* p2Dealer);
-    Deck DealerDeck;
+    std::pair<std::vector<Card>, int> GETDealerHand();
+    void SETp2Player(Player* p2Player);
   protected:
   private:
     Player* pPlayer;
-    Dealer* pDealer;
+    Deck DealerDeck;
     std::vector<Card> dealerHand;
     std::string dealerName;
+    int dealerHandValue;
 };
 
 #endif

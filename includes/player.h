@@ -11,8 +11,7 @@ class Player : BasePlayerData
 public:
   Player();
   std::string GETPlayerName();
-  std::vector<Card> GETPlayerHand();
-  int GETPlayerHandValue();
+  std::pair<std::vector<Card>, int> GETPlayerHand();
   void SETp2Dealer(void* inp2Dealer);
   int TAKECard(Card cardGiven, void* checkp2Dealer);
 private:

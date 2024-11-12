@@ -2,7 +2,7 @@
 
 #include "player.h"
 
-using std::string, std::vector;
+using std::string, std::vector, std::pair;
 
 typedef CT::Card Card;
 
@@ -19,14 +19,9 @@ string Player::GETPlayerName()
   return this->playerName;
 }
 
-vector<Card> Player::GETPlayerHand()
+pair<vector<Card>, int> Player::GETPlayerHand()
 {
-  return this->playerHand;
-}
-
-int Player::GETPlayerHandValue()
-{
-  return this->playerHandValue;
+  return {this->playerHand, this->playerHandValue};
 }
 
 //* END OF GET METHODS \\ -----------------------------------
@@ -41,7 +36,7 @@ void Player::SETp2Dealer(void* inp2Dealer)
 
 int Player::TAKECard(Card cardGiven, void* checkp2Dealer)
 {
-  if (checkp2Dealer == this->p2Dealer)
+  if (checkp2Dealer == &this->p2Dealer)
   {
     this->playerHand.push_back(cardGiven);
     return 1;

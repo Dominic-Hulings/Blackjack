@@ -1,8 +1,10 @@
-#include <iostream>
+//#include <iostream>
+#include <vector>
 
 #include "dealer.h"
 
-using std::string;
+using std::string, std::pair, std::vector;
+typedef CT::Card Card;
 
 Dealer::Dealer()
 {
@@ -14,14 +16,13 @@ string Dealer::GETDealerName()
   return this->dealerName;
 }
 
-void* Dealer::GETpDealer()
+pair<vector<Card>, int> Dealer::GETDealerHand()
 {
-  return this->pDealer;
+  return {this->dealerHand, this->dealerHandValue};
 }
 
-void Dealer::SETPointers(Player* p2Player, Dealer* p2Dealer)
+void Dealer::SETp2Player(Player* p2Player)
 {
   this->pPlayer = p2Player;
-  this->pDealer = p2Dealer;
 }
 
