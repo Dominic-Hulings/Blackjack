@@ -2,7 +2,6 @@
 #define DEALER_H
 
 #include <vector>
-// #include <string>
 
 #include "deck.h"
 #include "player.h"
