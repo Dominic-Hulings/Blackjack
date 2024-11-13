@@ -42,9 +42,20 @@ void Player::SETp2Dealer(void* inp2Dealer)
 
 void Player::TAKECard(Card cardGiven, bool isFaceDown)
 {
-    this->playerHand.push_back(cardGiven);
-
-    
+  this->playerHand.push_back(cardGiven);
 }
 
 //* END OF TAKE METHODS \\ ----------------------------------
+
+void Player::FundTransfer(int amt, bool isTaking)
+{
+  if (isTaking)
+  {
+    this->playerStack -= amt;
+  }
+
+  else
+  {
+    this->playerStack += amt;
+  }
+}

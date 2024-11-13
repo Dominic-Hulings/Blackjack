@@ -13,6 +13,7 @@ public:
   std::string GETPlayerName();
   std::vector<Card> GETPlayerHand();
   int GETPlayerStack();
+  void FundTransfer(int amt, bool isTaking);
   void SETp2Dealer( void* inp2Dealer );
   void TAKECard( Card cardGiven, bool isFaceDown );
 

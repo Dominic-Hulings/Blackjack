@@ -22,9 +22,9 @@ Deck* Dealer::GETDealerDeck()
   return &this->DealerDeck;
 }
 
-pair<vector<Card>, int> Dealer::GETDealerHand()
+vector<Card> Dealer::GETDealerHand()
 {
-  return {this->dealerHand, this->dealerHandValue};
+  return this->dealerHand;
 }
 
 Player* Dealer::GETpPlayer()
@@ -81,7 +81,7 @@ int Dealer::EvalHandValue(vector<Card> hand)
   return totalHandValue;
 }
 
-int Dealer::startHand()
+pair<int, int> Dealer::Hand()
 {
   //* BETTING ------------------------------------------------------
 
@@ -89,20 +89,9 @@ int Dealer::startHand()
   int amtBet = 0;
   cout << "How much to bet on this hand?\n";
   cout << "You have " << pPlayer->GETPlayerStack() << " total.\n";
-  cout << inNumToBet << "\n"; //TODO: change to cin
+  cout << inNumToBet << "\n"; //? change to cin?
 
-  if (inNumToBet <= pPlayer->GETPlayerStack())
-  {
-    amtBet = inNumToBet;
-  }
-  
-  else
-  {
-    cout << "error1";
-    return 0;
-  }
-
-  
+  amtBet = inNumToBet; //TODO: Add check to make sure they have enough
 
   //* END OF BETTING -----------------------------------------------
   //* INITIAL DEAL -------------------------------------------------
@@ -115,12 +104,14 @@ int Dealer::startHand()
   //* END OF INITIAL DEAL ------------------------------------------
   //* PLAYER TURN --------------------------------------------------
 
+  int playerHandVal;
   int playerChoice = 0;
   bool endTurn = false;
+  bool playerOver = false;
 
   while (!endTurn)
   {
-    cout << "Players hand:\n";
+    cout << "Player's hand:\n";
     for (Card card : this->pPlayer->GETPlayerHand())
     {
       cout << card.first << " of " << card.second << "\n";
@@ -131,6 +122,7 @@ int Dealer::startHand()
     if (EvalHandValue(this->pPlayer->GETPlayerHand()) > 21)
     {
       cout << "Player over 21.\n";
+      playerOver = true;
       break;
     }
 
@@ -146,6 +138,7 @@ int Dealer::startHand()
       case 2:
         cout << "Stand.\n";
         endTurn = true;
+        playerHandVal = EvalHandValue(this->pPlayer->GETPlayerHand());
         break;
       default:
         cout << "Input not recognized.\n";
@@ -153,13 +146,95 @@ int Dealer::startHand()
     }
   }
 
-  cout << "End player turn.\n";
-  cout << EvalHandValue(this->pPlayer->GETPlayerHand()) << "\n";
-
   //* END OF PLAYER TURN -------------------------------------------
+  //* DEALER TURN --------------------------------------------------
 
+  int dealerHandVal;
+  int dealerChoice = 0;
+  endTurn = false;
+  bool dealerOver = false;
 
+  while (true)
+  {
+    cout << "Dealer's hand:\n";
+    for (Card card : this->GETDealerHand())
+    {
+      cout << card.first << " of " << card.second << "\n";
+    }
 
-  return 1;
+    cout << "Value: " << EvalHandValue(this->GETDealerHand()) << "\n";
+
+    if (EvalHandValue(this->GETDealerHand()) > 21)
+    {
+      cout << "Dealer over 21.\n";
+      dealerOver = true;
+      break;
+    }
+
+    else if (EvalHandValue(this->GETDealerHand()) >= 17)
+    {
+      cout << "Dealer stands.\n";
+      dealerHandVal = EvalHandValue(this->GETDealerHand());
+      break;
+    }
+
+    else
+    {
+      this->TAKECard(this->DealerDeck.GETTopMainDeck(), false);
+    }
+  }
+
+  //* END OF DEALER TURN -------------------------------------------
+  //* WIN EVAL -----------------------------------------------------
+
+  if (playerOver)
+  {
+    return {2, amtBet};
+  }
+
+  else if (dealerOver)
+  {
+    return {1, amtBet};
+  }
+
+  else
+  {
+    if (playerHandVal > dealerHandVal)
+    {
+      return {1, amtBet};
+    }
+
+    else if (playerHandVal == dealerHandVal)
+    {
+      return {3, amtBet};
+    }
+
+    else
+    {
+      return {2, amtBet};
+    }
+  }
+
+  //* END OF WIN EVAL ----------------------------------------------
 }
 
+void Dealer::WonHand(pair<int, int> wonAndAmt)
+{
+  switch (wonAndAmt.first)
+  {
+    case 1:
+      cout << "Player won " << wonAndAmt.second << "\n";
+      this->pPlayer->FundTransfer(wonAndAmt.second, false);
+      break;
+    case 2:
+      cout << "Dealer won" << wonAndAmt.second << "\n";
+      this->pPlayer->FundTransfer(wonAndAmt.second, true);
+      break;
+    case 3:
+      cout << "Push" << "\n";
+      break;
+    default:
+      cout << "error 2" << "\n";;
+      break;
+  }
+}
