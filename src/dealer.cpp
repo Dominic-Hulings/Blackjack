@@ -105,9 +105,14 @@ pair<int, int> Dealer::Hand()
   //* PLAYER TURN --------------------------------------------------
 
   int playerHandVal;
-  int playerChoice = 0;
   bool endTurn = false;
   bool playerOver = false;
+
+  cout << "Dealer's hand:\n";
+  for (Card card : this->GETDealerHand())
+  {
+    cout << card.first << " of " << card.second << "\n";
+  }
 
   while (!endTurn)
   {
@@ -126,6 +131,7 @@ pair<int, int> Dealer::Hand()
       break;
     }
 
+    int playerChoice = 0;
     cout << "Hit(1) or stand(2)?\n";
     cin >> playerChoice;
 
@@ -227,7 +233,7 @@ void Dealer::WonHand(pair<int, int> wonAndAmt)
       this->pPlayer->FundTransfer(wonAndAmt.second, false);
       break;
     case 2:
-      cout << "Dealer won" << wonAndAmt.second << "\n";
+      cout << "Dealer won " << wonAndAmt.second << "\n";
       this->pPlayer->FundTransfer(wonAndAmt.second, true);
       break;
     case 3:
