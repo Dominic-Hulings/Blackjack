@@ -42,7 +42,7 @@ void Dealer::TAKECard(Card cardGiven, bool isFaceDown)
   this->dealerHand.push_back(cardGiven);
 }
 
-int Dealer::EvalHandValue(vector<Card> hand, bool secAceCount = false)
+int Dealer::EvalHandValue(vector<Card> hand)
 {
   int totalHandValue = 0;
   for (Card card : hand)
@@ -66,7 +66,15 @@ int Dealer::EvalHandValue(vector<Card> hand, bool secAceCount = false)
 
     else
     {
-      (secAceCount) ? totalHandValue += 1 : totalHandValue += 11;
+      if (totalHandValue + 11 > 21)
+      {
+        totalHandValue += 1;
+      }
+
+      else
+      {
+        totalHandValue += 11;
+      }
     }
   }
 
@@ -77,11 +85,11 @@ int Dealer::startHand()
 {
   //* BETTING ------------------------------------------------------
 
-  int inNumToBet = 0;
+  int inNumToBet = 20;
   int amtBet = 0;
   cout << "How much to bet on this hand?\n";
   cout << "You have " << pPlayer->GETPlayerStack() << " total.\n";
-  cin >> inNumToBet;
+  cout << inNumToBet << "\n"; //TODO: change to cin
 
   if (inNumToBet <= pPlayer->GETPlayerStack())
   {
@@ -107,13 +115,46 @@ int Dealer::startHand()
   //* END OF INITIAL DEAL ------------------------------------------
   //* PLAYER TURN --------------------------------------------------
 
-  cout << "Players hand:\n";
-  for (Card card : this->pPlayer->GETPlayerHand())
+  int playerChoice = 0;
+  bool endTurn = false;
+
+  while (!endTurn)
   {
-    cout << card.first << " of " << card.second << "\n";
+    cout << "Players hand:\n";
+    for (Card card : this->pPlayer->GETPlayerHand())
+    {
+      cout << card.first << " of " << card.second << "\n";
+    }
+
+    cout << "Value: " << EvalHandValue(this->pPlayer->GETPlayerHand()) << "\n";
+
+    if (EvalHandValue(this->pPlayer->GETPlayerHand()) > 21)
+    {
+      cout << "Player over 21.\n";
+      break;
+    }
+
+    cout << "Hit(1) or stand(2)?\n";
+    cin >> playerChoice;
+
+    switch (playerChoice)
+    {
+      case 1:
+        cout << "Hit.\n";
+        this->pPlayer->TAKECard(this->DealerDeck.GETTopMainDeck(), false);
+        break;
+      case 2:
+        cout << "Stand.\n";
+        endTurn = true;
+        break;
+      default:
+        cout << "Input not recognized.\n";
+        break;
+    }
   }
 
-  cout << "Value: " << EvalHandValue(this->pPlayer->GETPlayerHand()) << "\n";
+  cout << "End player turn.\n";
+  cout << EvalHandValue(this->pPlayer->GETPlayerHand()) << "\n";
 
   //* END OF PLAYER TURN -------------------------------------------
 
