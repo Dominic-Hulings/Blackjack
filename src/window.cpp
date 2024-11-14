@@ -29,9 +29,11 @@ Window::Window()
 {
  
   auto btn1 = Button("start", [&] { cout << "start works\n"; }, Style());
-  auto btn2 = Button("quit", [&] { cout << "quit works\n"; }, Style());
+  auto btn2 = Button("quit", [&] { exit(0); }, Style());
 
-  auto component = Renderer([&] {
+  auto buttons = Container::Horizontal({btn1, btn2}, 0);
+
+  auto component = Renderer(buttons, [&] {
     return vbox ({
       filler(),
       filler(),
