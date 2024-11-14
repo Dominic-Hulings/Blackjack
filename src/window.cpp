@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <filesystem>
 #include <stdlib.h>
 #include <ftxui/dom/elements.hpp>
 #include <ftxui/screen/screen.hpp>
@@ -11,7 +13,7 @@
 
 #include "window.h"
  
-using std::cout;
+using std::cout, std::string, std::ifstream, std::filesystem::exists, std::filesystem::current_path;
 using namespace ftxui;
 
 ButtonOption Style() {
@@ -39,7 +41,7 @@ Window::Window()
       filler(),
       hbox ({
         filler(),
-        text("Blackjack") | center | flex,
+        text("placeholder") | center | flex,
         filler()
       }),
       filler(),
@@ -60,4 +62,24 @@ Window::Window()
   auto screen = ScreenInteractive::Fullscreen();
 
   screen.Loop(component);
+}
+
+string Window::DisplaySprite(string sprNameToDisplay)
+{
+  string spriteFilePath = string(current_path().parent_path()) + "/sprites/" + sprNameToDisplay + ".txt";
+
+  if (!exists(spriteFilePath))
+  {
+    return "Sprite " + spriteFilePath + " not found!";
+  }
+
+  ifstream spriteFile(spriteFilePath);
+  string lineRead;
+
+  while (getline(spriteFile, lineRead))
+  {
+    
+  }
+
+  return ;
 }

@@ -3,7 +3,7 @@ set(CMAKE_CXX_STANDARD 17)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 file(GLOB_RECURSE SRC_FILES src/*.cpp)
-file(GLOB_RECURSE INCLUDE_FILES includes/*.h)
+file(GLOB_RECURSE INCLUDE_FILES includes/*.h, art/*.txt)
 
 include_directories(includes)
 
