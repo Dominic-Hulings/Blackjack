@@ -9,8 +9,7 @@ class Window
   public:
     Window();
   private:
-    std::string DisplaySprite(std::string sprToDisplay);
-    ftxui::Element AllLinesOfSprite(std::string sprFilePath, int lineNum);
+    ftxui::Element DisplaySprite(std::string sprToDisplay, std::pair<int, int> amtOfFiller);
 };
 
 #endif

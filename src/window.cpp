@@ -2,6 +2,8 @@
 #include <fstream>
 #include <filesystem>
 #include <stdlib.h>
+#include <vector>
+
 #include <ftxui/dom/elements.hpp>
 #include <ftxui/screen/screen.hpp>
 
@@ -13,7 +15,7 @@
 
 #include "window.h"
  
-using std::cout, std::string, std::ifstream, std::filesystem::exists, std::filesystem::current_path;
+using std::cout, std::string, std::ifstream, std::pair, std::filesystem::exists, std::filesystem::current_path, std::vector;
 using namespace ftxui;
 
 ButtonOption Style() {
@@ -39,11 +41,7 @@ Window::Window()
     return vbox ({
       filler(),
       filler(),
-      hbox ({
-        filler(),
-        text("placeholder") | center | flex,
-        filler()
-      }),
+      DisplaySprite("21spr", {1, 1}),
       filler(),
       hbox ({
         filler(),
@@ -64,35 +62,36 @@ Window::Window()
   screen.Loop(component);
 }
 
-string Window::DisplaySprite(string sprNameToDisplay)
+Element Window::DisplaySprite(string sprNameToDisplay, pair<int, int> amtOfFiller)
 {
   string spriteFilePath = string(current_path().parent_path()) + "/sprites/" + sprNameToDisplay + ".txt";
+  vector<Element> allLines;
 
   if (!exists(spriteFilePath))
   {
-    return "Sprite " + spriteFilePath + " not found!";
+    allLines.push_back(text("Sprite not found!"));
   }
 
-  return ;
-}
-
-Element Window::AllLinesOfSprite(std::string sprFilePath, int lineNum)
-{
-  ifstream spriteFile(sprFilePath);
-  string lineRead;
-
-  int currentLine = 1;
-
-  while (getline(spriteFile, lineRead))
+  else
   {
-    if (lineNum == currentLine)
+    ifstream spriteFile(spriteFilePath);
+    string lineRead;
+
+    for (int counter = amtOfFiller.first; counter != 0; counter--)
     {
-      break;
+      allLines.push_back(filler());
     }
-    currentLine++;
+
+    while (getline(spriteFile, lineRead))
+    {
+      allLines.push_back(text(lineRead + "\n"));
+    }
+
+    for (int counter = amtOfFiller.second; counter != 0; counter--)
+    {
+      allLines.push_back(filler());
+    }
   }
 
-  spriteFile.close();
-  return text(lineRead) + AllLinesOfSprite(sprFilePath, lineNum + 1);
-
+  return hbox(allLines);
 }
