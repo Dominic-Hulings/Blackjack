@@ -73,13 +73,26 @@ string Window::DisplaySprite(string sprNameToDisplay)
     return "Sprite " + spriteFilePath + " not found!";
   }
 
-  ifstream spriteFile(spriteFilePath);
+  return ;
+}
+
+Element Window::AllLinesOfSprite(std::string sprFilePath, int lineNum)
+{
+  ifstream spriteFile(sprFilePath);
   string lineRead;
+
+  int currentLine = 1;
 
   while (getline(spriteFile, lineRead))
   {
-    
+    if (lineNum == currentLine)
+    {
+      break;
+    }
+    currentLine++;
   }
 
-  return ;
+  spriteFile.close();
+  return text(lineRead) + AllLinesOfSprite(sprFilePath, lineNum + 1);
+
 }
