@@ -1,4 +1,5 @@
 #include <iostream>
+#include <stdlib.h>
 #include <ftxui/dom/elements.hpp>
 #include <ftxui/screen/screen.hpp>
 
@@ -27,9 +28,8 @@ ButtonOption Style() {
 
 Window::Window()
 {
- 
   auto btn1 = Button("start", [&] { cout << "start works\n"; }, Style());
-  auto btn2 = Button("quit", [&] { exit(0); }, Style());
+  auto btn2 = Button("quit", [&] { system("clear"); exit(0); }, Style());
 
   auto buttons = Container::Horizontal({btn1, btn2}, 0);
 
