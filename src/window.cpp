@@ -37,10 +37,28 @@ Window::Window()
 
   auto mainMenu = Container::Horizontal({btn1, btn2}, 0);
 
-  auto screen = Screen::Create(Dimension::Full(), Dimension::Full());
-  Render(screen, DisplaySprite("21spr"));
+  auto spriteScreen = Screen::Create(Dimension::Full(), Dimension::Full());
+  Render(spriteScreen, vbox({filler(), DisplaySprite("21spr") | center, filler(), filler(), filler()}));
 
-  screen.Print();
+  spriteScreen.Print();
+
+  auto component = Renderer(mainMenu, [&] {
+    return vbox ({
+      hbox ({
+        filler(),
+        filler(),
+        btn1->Render() | flex,
+        filler(),
+        btn2->Render() | flex,
+        filler(),
+        filler()
+      })
+    });
+  });
+
+  auto screen = ScreenInteractive::FixedSize(285, 35);
+
+  screen.Loop(component);
 }
 
 Element Window::DisplaySprite(string sprNameToDisplay)
