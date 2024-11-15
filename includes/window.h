@@ -9,7 +9,7 @@ class Window
   public:
     Window();
   private:
-    ftxui::Element DisplaySprite(std::string sprToDisplay, std::pair<int, int> amtOfFiller);
+    ftxui::Element DisplaySprite(std::string sprToDisplay);
 };
 
 #endif

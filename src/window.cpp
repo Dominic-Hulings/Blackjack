@@ -35,63 +35,34 @@ Window::Window()
   auto btn1 = Button("start", [&] { cout << "start works\n"; }, Style());
   auto btn2 = Button("quit", [&] { system("clear"); exit(0); }, Style());
 
-  auto buttons = Container::Horizontal({btn1, btn2}, 0);
+  auto mainMenu = Container::Horizontal({btn1, btn2}, 0);
 
-  auto component = Renderer(buttons, [&] {
-    return vbox ({
-      filler(),
-      filler(),
-      DisplaySprite("21spr", {1, 1}),
-      filler(),
-      hbox ({
-        filler(),
-        filler(),
-        btn1->Render(),
-        filler(),
-        btn2->Render(),
-        filler(),
-        filler()
-      }),
-      filler(),
-      filler()
-    });
-  });
+  auto screen = Screen::Create(Dimension::Full(), Dimension::Full());
+  Render(screen, DisplaySprite("21spr"));
 
-  auto screen = ScreenInteractive::Fullscreen();
-
-  screen.Loop(component);
+  screen.Print();
 }
 
-Element Window::DisplaySprite(string sprNameToDisplay, pair<int, int> amtOfFiller)
+Element Window::DisplaySprite(string sprNameToDisplay)
 {
   string spriteFilePath = string(current_path().parent_path()) + "/sprites/" + sprNameToDisplay + ".txt";
-  vector<Element> allLines;
 
   if (!exists(spriteFilePath))
   {
-    allLines.push_back(text("Sprite not found!"));
+    return text("Sprite not found!");
   }
 
   else
   {
     ifstream spriteFile(spriteFilePath);
     string lineRead;
-
-    for (int counter = amtOfFiller.first; counter != 0; counter--)
-    {
-      allLines.push_back(filler());
-    }
+    vector<Element> documentElements;
 
     while (getline(spriteFile, lineRead))
     {
-      allLines.push_back(text(lineRead + "\n"));
+      documentElements.push_back(hbox(text(lineRead)));
     }
 
-    for (int counter = amtOfFiller.second; counter != 0; counter--)
-    {
-      allLines.push_back(filler());
-    }
+    return vbox(documentElements);
   }
-
-  return hbox(allLines);
 }
