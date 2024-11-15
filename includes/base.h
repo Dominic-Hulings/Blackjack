@@ -2,7 +2,8 @@
 #define BASE_H
 
 #include <stack>
-#include <string>
+#include <ftxui/dom/elements.hpp>
+//#include <string>
 
 #include "global.h"
 
@@ -12,10 +13,11 @@ class BaseCardData : protected CT
     std::stack<Card> MainDeck;
 };
 
-class BasePlayerData : protected CT
+class WinPresets
 {
   protected:
-    std::string playerName;
+    ftxui::Element DisplaySprite(std::string sprNameToDisplay);
+    void MainMenuPre();
 };
 
 #endif

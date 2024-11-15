@@ -2,6 +2,6 @@
 
 int main()
 {
-  Window win;
+  Window currentWindow(1);
   return 1;
 }

@@ -4,17 +4,13 @@
 #include <string>
 #include <ftxui/dom/elements.hpp>
 
-#include "game.h"
+#include "base.h"
 
-class Window
+class Window : WinPresets
 {
   public:
-    Window();
+    Window(int winToGet);
   private:
-    void StartGame();
-    ftxui::Element DisplaySprite(std::string sprToDisplay);
-
-    ftxui::Screen staticFullScreen;
 };
 
 #endif

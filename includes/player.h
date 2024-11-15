@@ -6,7 +6,7 @@
 
 #include "base.h"
 
-class Player : BasePlayerData
+class Player : CT
 {
 public:
   Player();
@@ -19,6 +19,7 @@ public:
 
 private:
   void* p2Dealer;
+  std::string playerName;
   std::vector<Card> playerHand;
   int playerStack;
 };
