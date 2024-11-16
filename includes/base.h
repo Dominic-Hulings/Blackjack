@@ -13,11 +13,4 @@ class BaseCardData : protected CT
     std::stack<Card> MainDeck;
 };
 
-class WinPresets
-{
-  protected:
-    ftxui::Element DisplaySprite(std::string sprNameToDisplay);
-    void MainMenuPre();
-};
-
 #endif

@@ -9,6 +9,7 @@ class Game : CT
   public:
     Game();
   private:
+    void PlayHand();
     Player GamePlayer;
     Dealer GameDealer;
 };

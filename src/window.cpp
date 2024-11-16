@@ -3,6 +3,7 @@
 #include <filesystem>
 #include <stdlib.h>
 #include <vector>
+#include <algorithm>
 
 #include <ftxui/dom/elements.hpp>
 #include <ftxui/screen/screen.hpp>
@@ -15,17 +16,15 @@
 
 #include "window.h"
  
-using std::string, std::ifstream, std::filesystem::exists, std::filesystem::current_path, std::vector;
+using std::string, std::ifstream, std::vector;
 using namespace ftxui;
 
-Window::Window(int winToGet)
+Window::Window() : staticScreenFull(Screen::Create(Dimension::Full(), Dimension::Full()))
 {
-  switch (winToGet)
-  {
-    case 1:
-      this->MainMenuPre();
-      break;
-    default:
-      break;
-  }
+  
+}
+
+void Window::AddElement(string element)
+{
+  //staticFullScreen
 }
