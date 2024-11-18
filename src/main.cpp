@@ -2,6 +2,6 @@
 
 int main()
 {
-  
+  Window win("mainMenu");
   return 1;
 }

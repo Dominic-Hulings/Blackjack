@@ -16,15 +16,25 @@
 
 #include "window.h"
  
-using std::string, std::ifstream, std::vector;
+using std::string, std::ifstream, std::vector, std::filesystem::current_path, std::filesystem::exists;
 using namespace ftxui;
 
-Window::Window() : staticScreenFull(Screen::Create(Dimension::Full(), Dimension::Full()))
+Window::Window(string screen)
 {
-  
+  if (screen != "NULL")
+  {
+    GETscreen(screen);
+  }
 }
 
-void Window::AddElement(string element)
+void Window::GETscreen(string screen)
 {
-  //staticFullScreen
+  switch(screens.at(screen))
+  {
+    case 1:
+      MainMenuScreen();
+      break;
+    default:
+      break;
+  }
 }

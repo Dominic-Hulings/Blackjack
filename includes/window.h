@@ -2,19 +2,18 @@
 #define WINDOW_H
 
 #include <string>
-#include <map>
 #include <ftxui/dom/elements.hpp>
+#include <ftxui/component/component.hpp>
 
-//#include "base.h"
+#include "presets.h"
 
-class Window
+class Window : protected ScreenPresets
 {
   public:
-    Window();
-    void AddElement(std::string element);
-  private:
-    std::map<std::string, ftxui::Element*> presetElements;
-    ftxui::Screen staticScreenFull;
+    Window(std::string screen = "NULL");
+    void GETscreen(std::string screen);
+  protected:
+    ftxui::Element DisplaySprite(std::string sprNameToDisplay);
 };
 
 #endif
