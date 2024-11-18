@@ -11,7 +11,7 @@ class ScreenPresets
     ScreenPresets();
   protected:
     void MainMenuScreen();
-
+    void CardTest();
     ftxui::Element DisplaySprite(std::string sprNameToDisplay);
     std::map<std::string, int> screens;
 };

@@ -2,6 +2,6 @@
 
 int main()
 {
-  Window win("mainMenu");
+  Window win("cardTest");
   return 1;
 }

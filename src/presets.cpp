@@ -33,8 +33,34 @@ ButtonOption Style() {
 
 ScreenPresets::ScreenPresets()
 {
-  screens = { {"mainMenu", 1}};
+  screens = { {"mainMenu", 1}, {"cardTest", 2}};
 }
+
+Element ScreenPresets::DisplaySprite(string sprNameToDisplay)
+{
+  string spriteFilePath = string(current_path().parent_path()) + "/sprites/" + sprNameToDisplay + ".txt";
+
+  if (!exists(spriteFilePath))
+  {
+    return text("Sprite not found!");
+  }
+
+  else
+  {
+    ifstream spriteFile(spriteFilePath);
+    string lineRead;
+    vector<Element> documentElements;
+
+    while (getline(spriteFile, lineRead))
+    {
+      documentElements.push_back(hbox(text(lineRead)));
+    }
+
+    return vbox(documentElements);
+  }
+}
+
+//* PRESETS START -------------------------------------------------------
 
 void ScreenPresets::MainMenuScreen()
 {
@@ -65,26 +91,9 @@ void ScreenPresets::MainMenuScreen()
   screen.Loop(component);
 }
 
-Element ScreenPresets::DisplaySprite(string sprNameToDisplay)
+void ScreenPresets::CardTest()
 {
-  string spriteFilePath = string(current_path().parent_path()) + "/sprites/" + sprNameToDisplay + ".txt";
-
-  if (!exists(spriteFilePath))
-  {
-    return text("Sprite not found!");
-  }
-
-  else
-  {
-    ifstream spriteFile(spriteFilePath);
-    string lineRead;
-    vector<Element> documentElements;
-
-    while (getline(spriteFile, lineRead))
-    {
-      documentElements.push_back(hbox(text(lineRead)));
-    }
-
-    return vbox(documentElements);
-  }
+  //auto card1 = Renderer([], {return })
 }
+
+//* END OF PRESETS -----------------------------------------------------

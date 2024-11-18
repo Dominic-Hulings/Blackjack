@@ -34,6 +34,9 @@ void Window::GETscreen(string screen)
     case 1:
       MainMenuScreen();
       break;
+    case 2:
+      CardTest();
+      break;
     default:
       break;
   }
