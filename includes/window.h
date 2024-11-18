@@ -6,13 +6,15 @@
 #include <ftxui/component/component.hpp>
 
 #include "presets.h"
+#include "global.h"
 
-class Window : protected ScreenPresets
+class Window : protected ScreenPresets, CT
 {
   public:
     Window(std::string screen = "NULL");
     void GETscreen(std::string screen);
   protected:
+    ftxui::Element GETcardSprite(Card cardToGet, int typeOfCard);
     ftxui::Element DisplaySprite(std::string sprNameToDisplay);
 };
 

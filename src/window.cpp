@@ -16,7 +16,7 @@
 
 #include "window.h"
  
-using std::string, std::ifstream, std::vector, std::filesystem::current_path, std::filesystem::exists;
+using std::string, std::ifstream, std::pair, std::map, std::vector;
 using namespace ftxui;
 
 Window::Window(string screen)
@@ -36,6 +36,19 @@ void Window::GETscreen(string screen)
       break;
     case 2:
       CardTest();
+      break;
+    default:
+      break;
+  }
+}
+
+Element Window::GETcardSprite(Card cardToGet, int typeOfCard)
+{
+  vector<Element> cardSprite;
+
+  switch(typeOfCard)
+  {
+    case 1: //* PLAYER CARD 1
       break;
     default:
       break;
