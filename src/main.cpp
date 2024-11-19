@@ -2,6 +2,7 @@
 
 int main()
 {
-  Window win("cardTest");
+  system("clear");
+  Window win("tableTest");
   return 1;
 }

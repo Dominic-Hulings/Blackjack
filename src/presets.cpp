@@ -33,7 +33,7 @@ ButtonOption Style() {
 
 ScreenPresets::ScreenPresets()
 {
-  screens = { {"mainMenu", 1}, {"cardTest", 2}};
+  screens = { {"mainMenu", 1}, {"cardTest", 2}, {"tableTest", 3}};
 }
 
 Element ScreenPresets::DisplaySprite(string sprNameToDisplay)
@@ -174,9 +174,17 @@ void ScreenPresets::MainMenuScreen()
 
 void ScreenPresets::CardTest()
 {
-  auto cardSpr = GETcardSprite({"Ace", "Heart"}, 1);
+  auto topCardSpr = GETcardSprite({"Ace", "Hearts"}, 1);
+  auto btmCardSpr = GETcardSprite({"Ace", "Spades"}, 1);
   auto spriteScreen = Screen::Create(Dimension::Full(), Dimension::Full());
-  Render(spriteScreen, cardSpr);
+  Render(spriteScreen, vbox({filler(), hbox({filler(), topCardSpr, btmCardSpr, filler()})}));
+  spriteScreen.Print();
+}
+
+void ScreenPresets::TableTest()
+{
+  auto spriteScreen = Screen::Create(Dimension::Full(), Dimension::Full());
+  Render(spriteScreen, DisplaySprite("tablespr"));
   spriteScreen.Print();
 }
 

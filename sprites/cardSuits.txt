@@ -10,12 +10,12 @@ Clubs
 |            (_  _)           |
 |              /\             |
 
-Heart
+Hearts
 |            | \/ |           |
 |             \  /            |
 |              \/             |
 
-Diamond
+Diamonds
 |             _/\_            |
 |            <_  _>           |
 |              \/             |

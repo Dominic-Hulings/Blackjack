@@ -29,7 +29,7 @@ Window::Window(string screen)
 
 void Window::GETscreen(string screen)
 {
-  switch(screens.at(screen)) //* screens map = { {"mainMenu", 1}, {"cardTest", 2}};
+  switch(screens.at(screen)) //* screens map = { {"mainMenu", 1}, {"cardTest", 2}, {"tableTest", 3}};
   {
     case 1:
       MainMenuScreen();
@@ -37,6 +37,8 @@ void Window::GETscreen(string screen)
     case 2:
       CardTest();
       break;
+    case 3:
+      TableTest();
     default:
       break;
   }
