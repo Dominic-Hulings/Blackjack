@@ -144,14 +144,16 @@ Element ScreenPresets::GETcardSprite(Card cardToGet, int typeOfCard)
 
 //* PRESETS START -------------------------------------------------------
 
-void ScreenPresets::MainMenuScreen()
+void ScreenPresets::MainMenuScreen() //*                        MAIN MENU
 {
-  auto btn1 = Button("start", [&] { cout << "start works\n"; }, Style());
+  auto spriteScreen = Screen::Create(Dimension::Full(), Dimension::Full());
+  auto screen = ScreenInteractive::FixedSize(285, 35);
+
+  auto btn1 = Button("start", [&] { spriteScreen.Clear(); screen.Exit(); TableTest(); }, Style());
   auto btn2 = Button("quit", [&] { system("clear"); exit(0); }, Style());
 
   auto mainMenu = Container::Horizontal({btn1, btn2}, 0);
 
-  auto spriteScreen = Screen::Create(Dimension::Full(), Dimension::Full());
   Render(spriteScreen, vbox({filler(), DisplaySprite("21spr") | center, filler(), filler(), filler()}));
 
   spriteScreen.Print();
@@ -168,9 +170,12 @@ void ScreenPresets::MainMenuScreen()
       })
     });
   });
-  auto screen = ScreenInteractive::FixedSize(285, 35);
+
   screen.Loop(component);
 }
+
+//* END OF PRESETS -----------------------------------------------------
+//* TESTS START --------------------------------------------------------
 
 void ScreenPresets::CardTest()
 {
@@ -188,4 +193,4 @@ void ScreenPresets::TableTest()
   spriteScreen.Print();
 }
 
-//* END OF PRESETS -----------------------------------------------------
+//* END OF TESTS ------------------------------------------------------

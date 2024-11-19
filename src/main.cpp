@@ -3,6 +3,6 @@
 int main()
 {
   system("clear");
-  Window win("tableTest");
+  Window win("mainMenu");
   return 1;
 }
