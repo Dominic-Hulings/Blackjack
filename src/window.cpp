@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <vector>
 #include <algorithm>
+#include <stack>
 
 #include <ftxui/dom/elements.hpp>
 #include <ftxui/screen/screen.hpp>
@@ -16,7 +17,7 @@
 
 #include "window.h"
  
-using std::string, std::ifstream;
+using std::string, std::ifstream, std::stack;
 using namespace ftxui;
 
 Window::Window(string screen)

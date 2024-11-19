@@ -2,6 +2,7 @@
 #define PRESETS_H
 
 #include <ftxui/dom/elements.hpp>
+#include <ftxui/component/component.hpp>
 #include <map>
 #include <string>
 

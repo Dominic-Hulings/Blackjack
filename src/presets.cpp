@@ -146,19 +146,18 @@ Element ScreenPresets::GETcardSprite(Card cardToGet, int typeOfCard)
 
 void ScreenPresets::MainMenuScreen() //*                        MAIN MENU
 {
-  auto spriteScreen = Screen::Create(Dimension::Full(), Dimension::Full());
-  auto screen = ScreenInteractive::FixedSize(285, 35);
+  auto screen = ScreenInteractive::Fullscreen();
 
-  auto btn1 = Button("start", [&] { spriteScreen.Clear(); screen.Exit(); TableTest(); }, Style());
+  auto btn1 = Button("start", [&] { screen.ExitLoopClosure()(); }, Style());
   auto btn2 = Button("quit", [&] { system("clear"); exit(0); }, Style());
 
   auto mainMenu = Container::Horizontal({btn1, btn2}, 0);
 
-  Render(spriteScreen, vbox({filler(), DisplaySprite("21spr") | center, filler(), filler(), filler()}));
-
-  spriteScreen.Print();
   auto component = Renderer(mainMenu, [&] {
     return vbox ({
+      filler(),
+      DisplaySprite("21spr") | center,
+      filler(),
       hbox ({
         filler(),
         filler(),
@@ -167,7 +166,9 @@ void ScreenPresets::MainMenuScreen() //*                        MAIN MENU
         btn2->Render() | flex,
         filler(),
         filler()
-      })
+      }),
+      filler(),
+      filler()
     });
   });
 

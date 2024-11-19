@@ -2,6 +2,7 @@
 #define WINDOW_H
 
 #include <string>
+#include <stack>
 #include <ftxui/dom/elements.hpp>
 #include <ftxui/component/component.hpp>
 
