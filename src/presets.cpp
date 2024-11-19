@@ -62,19 +62,21 @@ Element ScreenPresets::DisplaySprite(string sprNameToDisplay)
 
 Element ScreenPresets::GETcardSprite(Card cardToGet, int typeOfCard)
 {
-  string spriteFilePath = string(current_path().parent_path()) + "/sprites/cardNums.txt";
+  string numFilePath = string(current_path().parent_path()) + "/sprites/cardNums.txt";
+  string suitFilePath = string(current_path().parent_path()) + "/sprites/cardSuits.txt";
   vector<Element> cardSprite;
-  ifstream spriteFile(spriteFilePath);
+  ifstream numFile(numFilePath);
+  ifstream suitFile(suitFilePath);
   string lineRead;
   int counter;
 
   switch(typeOfCard)
   {
     case 1: //* PLAYER CARD 1
-      cardSprite.push_back(hbox(text(" ______________________________")));
-      cardSprite.push_back(hbox(text("|                              |")));
+      cardSprite.push_back(hbox(text(" _____________________________")));
+      cardSprite.push_back(hbox(text("|                             |")));
       
-      while (getline(spriteFile, lineRead))
+      while (getline(numFile, lineRead))
       {
         if (lineRead == cardToGet.first)
         {
@@ -89,29 +91,54 @@ Element ScreenPresets::GETcardSprite(Card cardToGet, int typeOfCard)
 
       for (int counter = 4; counter != 0; counter--)
       {
-        getline(spriteFile, lineRead);
+        getline(numFile, lineRead);
         cardSprite.push_back(hbox(text(lineRead)));
       }
 
-      for (int counter = 9; counter != 0; counter--)
+      for (int counter = 3; counter != 0; counter--)
       {
-        cardSprite.push_back(hbox(text("|                              |")));
+        cardSprite.push_back(hbox(text("|                             |")));
+      }
+
+      while (getline(suitFile, lineRead))
+      {
+        if (lineRead == cardToGet.second)
+        {
+          break;
+        }
+
+        else
+        {
+          continue;
+        }
+      }
+
+      for (int counter = 3; counter != 0; counter--)
+      {
+        getline(suitFile, lineRead);
+        cardSprite.push_back(hbox(text(lineRead)));
+      }
+
+      for (int counter = 3; counter != 0; counter--)
+      {
+        cardSprite.push_back(hbox(text("|                             |")));
       }
 
       for (int counter = 4; counter != 0; counter--)
       {
-        getline(spriteFile, lineRead);
+        getline(numFile, lineRead);
         cardSprite.push_back(hbox(text(lineRead)));
       }
 
-      cardSprite.push_back(hbox(text("|______________________________|")));
+      cardSprite.push_back(hbox(text("|_____________________________|")));
       break;
 
     default:
       break;
   }
 
-  spriteFile.close();
+  suitFile.close();
+  numFile.close();
   return vbox(cardSprite);
 }
 
@@ -147,7 +174,7 @@ void ScreenPresets::MainMenuScreen()
 
 void ScreenPresets::CardTest()
 {
-  auto cardSpr = GETcardSprite({"Ace", "Spades"}, 1);
+  auto cardSpr = GETcardSprite({"Ace", "Heart"}, 1);
   auto spriteScreen = Screen::Create(Dimension::Full(), Dimension::Full());
   Render(spriteScreen, cardSpr);
   spriteScreen.Print();
