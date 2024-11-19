@@ -60,6 +60,61 @@ Element ScreenPresets::DisplaySprite(string sprNameToDisplay)
   }
 }
 
+Element ScreenPresets::GETcardSprite(Card cardToGet, int typeOfCard)
+{
+  string spriteFilePath = string(current_path().parent_path()) + "/sprites/cardNums.txt";
+  vector<Element> cardSprite;
+  ifstream spriteFile(spriteFilePath);
+  string lineRead;
+  int counter;
+
+  switch(typeOfCard)
+  {
+    case 1: //* PLAYER CARD 1
+      cardSprite.push_back(hbox(text(" ______________________________")));
+      cardSprite.push_back(hbox(text("|                              |")));
+      
+      while (getline(spriteFile, lineRead))
+      {
+        if (lineRead == cardToGet.first)
+        {
+          break;
+        }
+
+        else
+        {
+          continue;
+        }
+      }
+
+      for (int counter = 4; counter != 0; counter--)
+      {
+        getline(spriteFile, lineRead);
+        cardSprite.push_back(hbox(text(lineRead)));
+      }
+
+      for (int counter = 9; counter != 0; counter--)
+      {
+        cardSprite.push_back(hbox(text("|                              |")));
+      }
+
+      for (int counter = 4; counter != 0; counter--)
+      {
+        getline(spriteFile, lineRead);
+        cardSprite.push_back(hbox(text(lineRead)));
+      }
+
+      cardSprite.push_back(hbox(text("|______________________________|")));
+      break;
+
+    default:
+      break;
+  }
+
+  spriteFile.close();
+  return vbox(cardSprite);
+}
+
 //* PRESETS START -------------------------------------------------------
 
 void ScreenPresets::MainMenuScreen()
@@ -72,7 +127,6 @@ void ScreenPresets::MainMenuScreen()
   auto spriteScreen = Screen::Create(Dimension::Full(), Dimension::Full());
   Render(spriteScreen, vbox({filler(), DisplaySprite("21spr") | center, filler(), filler(), filler()}));
 
-  spriteScreen.Print();
   spriteScreen.Print();
   auto component = Renderer(mainMenu, [&] {
     return vbox ({
@@ -93,7 +147,10 @@ void ScreenPresets::MainMenuScreen()
 
 void ScreenPresets::CardTest()
 {
-  //auto card1 = Renderer([], {return })
+  auto cardSpr = GETcardSprite({"Ace", "Spades"}, 1);
+  auto spriteScreen = Screen::Create(Dimension::Full(), Dimension::Full());
+  Render(spriteScreen, cardSpr);
+  spriteScreen.Print();
 }
 
 //* END OF PRESETS -----------------------------------------------------

@@ -5,7 +5,9 @@
 #include <map>
 #include <string>
 
-class ScreenPresets
+#include "global.h"
+
+class ScreenPresets : public CT
 {
   public:
     ScreenPresets();
@@ -13,6 +15,7 @@ class ScreenPresets
     void MainMenuScreen();
     void CardTest();
     ftxui::Element DisplaySprite(std::string sprNameToDisplay);
+    ftxui::Element GETcardSprite(Card cardToGet, int typeOfCard);
     std::map<std::string, int> screens;
 };
 

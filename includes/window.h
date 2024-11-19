@@ -8,7 +8,7 @@
 #include "presets.h"
 #include "global.h"
 
-class Window : protected ScreenPresets, CT
+class Window : protected ScreenPresets
 {
   public:
     Window(std::string screen = "NULL");
