@@ -148,7 +148,7 @@ void ScreenPresets::MainMenuScreen() //*                        MAIN MENU
 {
   auto screen = ScreenInteractive::Fullscreen();
 
-  auto btn1 = Button("start", [&] { screen.ExitLoopClosure()(); }, Style());
+  auto btn1 = Button("start", [&] { screen.ExitLoopClosure()(); CardTest(); }, Style());
   auto btn2 = Button("quit", [&] { system("clear"); exit(0); }, Style());
 
   auto mainMenu = Container::Horizontal({btn1, btn2}, 0);
@@ -180,18 +180,33 @@ void ScreenPresets::MainMenuScreen() //*                        MAIN MENU
 
 void ScreenPresets::CardTest()
 {
-  auto topCardSpr = GETcardSprite({"Ace", "Hearts"}, 1);
-  auto btmCardSpr = GETcardSprite({"Ace", "Spades"}, 1);
-  auto spriteScreen = Screen::Create(Dimension::Full(), Dimension::Full());
-  Render(spriteScreen, vbox({filler(), hbox({filler(), topCardSpr, btmCardSpr, filler()})}));
-  spriteScreen.Print();
+
+  auto component = Renderer([&] {
+    return vbox ({
+      filler(),
+      hbox ({
+        filler(),
+        GETcardSprite({"Ace", "Spades"}, 1),
+        GETcardSprite({"Ace", "Hearts"}, 1),
+        filler()
+      })
+    });
+  });
+
+  auto spriteScreen = ScreenInteractive::Fullscreen();
+  spriteScreen.Loop(component);
 }
 
 void ScreenPresets::TableTest()
 {
-  auto spriteScreen = Screen::Create(Dimension::Full(), Dimension::Full());
-  Render(spriteScreen, DisplaySprite("tablespr"));
-  spriteScreen.Print();
+  auto spriteScreen = ScreenInteractive::Fullscreen();
+  auto component = Renderer([&] {
+    return vbox ({
+      DisplaySprite("tablespr")
+    });
+  });
+
+  spriteScreen.Loop(component);
 }
 
 //* END OF TESTS ------------------------------------------------------
