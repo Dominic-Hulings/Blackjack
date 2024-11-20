@@ -17,7 +17,7 @@
 
 #include "window.h"
  
-using std::string, std::ifstream, std::stack;
+using std::string, std::ifstream;
 using namespace ftxui;
 
 Window::Window(string screen)
@@ -30,7 +30,7 @@ Window::Window(string screen)
 
 void Window::GETscreen(string screen)
 {
-  switch(screens.at(screen)) //* screens map = { {"mainMenu", 1}, {"cardTest", 2}, {"tableTest", 3}};
+  switch(screens.at(screen)) //* screens map = { {"mainMenu", 1}, {"cardTest", 2}, {"tableTest", 3}, {"escScreen", 4}};
   {
     case 1:
       MainMenuScreen();
@@ -40,7 +40,12 @@ void Window::GETscreen(string screen)
       break;
     case 3:
       TableTest();
+      break;
+    case 4:
+      EscScreen();
+      break;
     default:
+      MainMenuScreen();
       break;
   }
 }

@@ -33,7 +33,7 @@ ButtonOption Style() {
 
 ScreenPresets::ScreenPresets()
 {
-  screens = { {"mainMenu", 1}, {"cardTest", 2}, {"tableTest", 3}};
+  screens = { {"mainMenu", 1}, {"cardTest", 2}, {"tableTest", 3}, {"escScreen", 4}};
 }
 
 Element ScreenPresets::DisplaySprite(string sprNameToDisplay)
@@ -144,14 +144,14 @@ Element ScreenPresets::GETcardSprite(Card cardToGet, int typeOfCard)
 
 //* PRESETS START -------------------------------------------------------
 
-void ScreenPresets::MainMenuScreen() //*                                       MAIN MENU
+void ScreenPresets::MainMenuScreen() //*                   MAIN MENU
 {
   auto screen = ScreenInteractive::Fullscreen();
 
-  auto btn1 = Button("start", [&] { screen.ExitLoopClosure()(); CardTest(); }, Style());
-  auto btn2 = Button("quit", [&] { system("clear"); exit(0); }, Style());
+  auto startBtn = Button("start", [&] { screen.ExitLoopClosure()(); system("clear"); CardTest(); }, Style());
+  auto quitBtn = Button("quit", [&] { system("clear"); exit(0); }, Style());
 
-  auto mainMenu = Container::Horizontal({btn1, btn2}, 0);
+  auto mainMenu = Container::Horizontal({startBtn, quitBtn}, 0);
 
   auto renderer = Renderer(mainMenu, [&] {
     return vbox ({
@@ -161,9 +161,9 @@ void ScreenPresets::MainMenuScreen() //*                                       M
       hbox ({
         filler(),
         filler(),
-        btn1->Render() | flex,
+        startBtn->Render() | flex,
         filler(),
-        btn2->Render() | flex,
+        quitBtn->Render() | flex,
         filler(),
         filler()
       }),
@@ -172,20 +172,15 @@ void ScreenPresets::MainMenuScreen() //*                                       M
     });
   });
 
-  auto component = CatchEvent(renderer, [&](Event event) {
-    if (event == Event::Character('q')) {
-      screen.ExitLoopClosure()();
-      return true;
-    }
-    return false;
-  });
-
-  screen.Loop(component);
+  screen.Loop(renderer);
 }
 
-void ScreenPresets::EscScreen()
+void ScreenPresets::EscScreen() //*                           ESC SCREEN 
 {
-
+  auto screen = ScreenInteractive::Fullscreen();
+  
+  auto resumeBtn = Button("resume", [&] { system("clear"); });
+  auto quitBtn = Button("quit", [&] { system("clear"); exit(0); }, Style());
 }
 
 //* END OF PRESETS -----------------------------------------------------
@@ -193,8 +188,9 @@ void ScreenPresets::EscScreen()
 
 void ScreenPresets::CardTest()
 {
+  auto screen = ScreenInteractive::Fullscreen();
 
-  auto component = Renderer([&] {
+  auto renderer = Renderer([&] {
     return vbox ({
       filler(),
       hbox ({
@@ -206,20 +202,29 @@ void ScreenPresets::CardTest()
     });
   });
 
-  auto spriteScreen = ScreenInteractive::Fullscreen();
-  spriteScreen.Loop(component);
+  auto component = CatchEvent(renderer, [&](Event event) {
+    if (event == Event::Escape) {
+      //screen.ExitLoopClosure()();
+      system("clear");
+      EscScreen();
+      return true;
+    }
+    return false;
+  });
+
+  screen.Loop(component);
 }
 
 void ScreenPresets::TableTest()
 {
-  auto spriteScreen = ScreenInteractive::Fullscreen();
-  auto component = Renderer([&] {
+  auto screen = ScreenInteractive::Fullscreen();
+  auto renderer = Renderer([&] {
     return vbox ({
       DisplaySprite("tablespr")
     });
   });
 
-  spriteScreen.Loop(component);
+  screen.Loop(renderer);
 }
 
 //* END OF TESTS ------------------------------------------------------
