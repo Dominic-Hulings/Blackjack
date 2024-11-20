@@ -3,7 +3,6 @@
 #include <filesystem>
 #include <stdlib.h>
 #include <vector>
-#include <algorithm>
 
 #include <ftxui/dom/elements.hpp>
 #include <ftxui/screen/screen.hpp>
@@ -13,6 +12,7 @@
 #include "ftxui/component/component_base.hpp"
 #include "ftxui/component/screen_interactive.hpp" 
 #include "ftxui/dom/elements.hpp"
+#include "ftxui/component/event.hpp" 
 
 #include "presets.h"
 
@@ -144,7 +144,7 @@ Element ScreenPresets::GETcardSprite(Card cardToGet, int typeOfCard)
 
 //* PRESETS START -------------------------------------------------------
 
-void ScreenPresets::MainMenuScreen() //*                        MAIN MENU
+void ScreenPresets::MainMenuScreen() //*                                       MAIN MENU
 {
   auto screen = ScreenInteractive::Fullscreen();
 
@@ -153,7 +153,7 @@ void ScreenPresets::MainMenuScreen() //*                        MAIN MENU
 
   auto mainMenu = Container::Horizontal({btn1, btn2}, 0);
 
-  auto component = Renderer(mainMenu, [&] {
+  auto renderer = Renderer(mainMenu, [&] {
     return vbox ({
       filler(),
       DisplaySprite("21spr") | center,
@@ -172,7 +172,20 @@ void ScreenPresets::MainMenuScreen() //*                        MAIN MENU
     });
   });
 
+  auto component = CatchEvent(renderer, [&](Event event) {
+    if (event == Event::Character('q')) {
+      screen.ExitLoopClosure()();
+      return true;
+    }
+    return false;
+  });
+
   screen.Loop(component);
+}
+
+void ScreenPresets::EscScreen()
+{
+
 }
 
 //* END OF PRESETS -----------------------------------------------------

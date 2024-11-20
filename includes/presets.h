@@ -14,6 +14,7 @@ class ScreenPresets : public CT
     ScreenPresets();
   protected:
     void MainMenuScreen();
+    void EscScreen();
     void CardTest();
     void TableTest();
     ftxui::Element DisplaySprite(std::string sprNameToDisplay);
