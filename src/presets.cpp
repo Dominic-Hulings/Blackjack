@@ -21,12 +21,12 @@ using namespace ftxui;
 
 ButtonOption Style() {
   auto option = ButtonOption::Animated();
-  option.transform = [](const EntryState& s) {
+  option.transform = [&](const EntryState& s) {
     auto element = text(s.label);
     if (s.focused) {
       element |= bold;
     }
-    return element | center | borderEmpty | flex;
+    return element | center | border | flex;
   };
   return option;
 }
@@ -148,9 +148,9 @@ void ScreenPresets::MainMenuScreen() //*                        MAIN MENU
 {
   auto screen = ScreenInteractive::Fullscreen();
 
-  auto startBtn = Button("start", [&] { screen.ExitLoopClosure()(); system("clear"); CardTest(); }, Style());
-  auto quitBtn = Button("quit", [&] { system("clear"); exit(0); }, Style());
-
+  auto startBtn = Button("start", [&] { screen.ExitLoopClosure()(); system("clear"); CardTest(); Style();});
+  auto quitBtn = Button("quit", [&] { system("clear"); exit(0); Style();});
+  
   auto mainMenu = Container::Horizontal({startBtn, quitBtn}, 0);
 
   auto renderer = Renderer(mainMenu, [&] {
@@ -179,8 +179,8 @@ void ScreenPresets::EscScreen() //*                           ESC SCREEN
 {
   auto screen = ScreenInteractive::Fullscreen();
   
-  auto resumeBtn = Button("resume", [&] { screen.ExitLoopClosure()(); system("clear"); });
-  auto quitBtn = Button("quit", [&] { system("clear"); exit(0); }, Style());
+  auto resumeBtn = Button("resume", [&] { screen.ExitLoopClosure()(); system("clear"); Style();});
+  auto quitBtn = Button("quit", [&] { system("clear"); exit(0); Style();});
 
   auto escMenu = Container::Vertical({resumeBtn, quitBtn}, 0);
 
@@ -189,8 +189,18 @@ void ScreenPresets::EscScreen() //*                           ESC SCREEN
       filler(),
       hbox ({
         filler(),
-        resumeBtn->Render(),
-        quitBtn->Render(),
+        vbox ({
+          filler(),
+          filler(),
+          resumeBtn->Render(),
+          filler(),
+          quitBtn->Render(),
+          filler(),
+          filler(),
+          filler()
+        }),
+        filler(),
+        filler(),
         filler()
       }),
       filler()
@@ -240,7 +250,7 @@ void ScreenPresets::CardTest()
     {
       EscScreen();
     }
-    
+
     isPaused = !isPaused;
   }
 }
