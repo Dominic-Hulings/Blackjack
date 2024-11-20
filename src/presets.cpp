@@ -144,7 +144,7 @@ Element ScreenPresets::GETcardSprite(Card cardToGet, int typeOfCard)
 
 //* PRESETS START -------------------------------------------------------
 
-void ScreenPresets::MainMenuScreen() //*                   MAIN MENU
+void ScreenPresets::MainMenuScreen() //*                        MAIN MENU
 {
   auto screen = ScreenInteractive::Fullscreen();
 
@@ -179,8 +179,25 @@ void ScreenPresets::EscScreen() //*                           ESC SCREEN
 {
   auto screen = ScreenInteractive::Fullscreen();
   
-  auto resumeBtn = Button("resume", [&] { system("clear"); });
+  auto resumeBtn = Button("resume", [&] { screen.ExitLoopClosure()(); system("clear"); });
   auto quitBtn = Button("quit", [&] { system("clear"); exit(0); }, Style());
+
+  auto escMenu = Container::Vertical({resumeBtn, quitBtn}, 0);
+
+  auto renderer = Renderer(escMenu, [&] {
+    return vbox ({
+      filler(),
+      hbox ({
+        filler(),
+        resumeBtn->Render(),
+        quitBtn->Render(),
+        filler()
+      }),
+      filler()
+    });
+  });
+
+  screen.Loop(renderer);
 }
 
 //* END OF PRESETS -----------------------------------------------------
@@ -204,15 +221,28 @@ void ScreenPresets::CardTest()
 
   auto component = CatchEvent(renderer, [&](Event event) {
     if (event == Event::Escape) {
-      //screen.ExitLoopClosure()();
-      system("clear");
-      EscScreen();
+      screen.ExitLoopClosure()();
       return true;
     }
     return false;
   });
 
-  screen.Loop(component);
+  bool isPaused = false;
+
+  while (true)
+  {
+    if (!isPaused)
+    {
+      screen.Loop(component);
+    }
+
+    else
+    {
+      EscScreen();
+    }
+    
+    isPaused = !isPaused;
+  }
 }
 
 void ScreenPresets::TableTest()
